@@ -1,0 +1,107 @@
+AQUALEAF - HOSTINGER DEPLOYMENT GUIDE
+========================================
+
+DOMAIN
+------
+https://aqualeaf.space
+
+1. CREATE MYSQL DATABASE
+------------------------
+In Hostinger hPanel:
+Websites -> Manage -> Databases -> MySQL Databases
+
+Create a MySQL database and user.
+Hostinger will show:
+- Database name
+- Database username
+- Database password
+- Host (normally localhost)
+
+2. EDIT DATABASE CONFIG
+------------------------
+Open:
+config/database.php
+
+Replace:
+YOUR_HOSTINGER_DATABASE_NAME
+YOUR_HOSTINGER_DATABASE_USER
+YOUR_HOSTINGER_DATABASE_PASSWORD
+
+with the exact values from Hostinger.
+
+3. UPLOAD FILES
+---------------
+In hPanel:
+Files -> File Manager -> public_html
+
+Upload the CONTENTS of the AquaLeaf folder into public_html.
+
+The important result must be:
+public_html/index.php
+public_html/config/
+public_html/assets/
+public_html/pages/
+public_html/admin/
+
+Do NOT upload it as:
+public_html/AquaLeaf/index.php
+unless your domain document root is intentionally set to that folder.
+
+4. IMPORT DATABASE
+------------------
+Option A (recommended):
+- Open phpMyAdmin from Hostinger.
+- Select the database you created.
+- Import database/schema.sql.
+
+Option B:
+- After editing config/database.php, open:
+  https://aqualeaf.space/install.php
+- Confirm that the tables are created.
+
+5. OPEN THE WEBSITE
+-------------------
+https://aqualeaf.space
+
+Admin:
+https://aqualeaf.space/admin/login.php
+
+Default admin:
+Email: admin@aqualeaf.com
+Password: admin123
+
+6. DELETE SETUP FILES
+---------------------
+After successful setup, delete these from public_html:
+install.php
+reset-admin.php
+admin/fix-password.php
+
+Do not leave password-reset/setup scripts publicly accessible.
+
+7. SSL / HTTPS
+--------------
+In Hostinger hPanel, make sure SSL is active for aqualeaf.space.
+The project is configured for:
+https://aqualeaf.space
+
+8. IF YOU SEE "DATABASE CONNECTION FAILED"
+-------------------------------------------
+Check config/database.php and copy the database name, username and password
+exactly as shown in Hostinger. Do not use XAMPP's:
+username = root
+password = blank
+
+9. IF THE DOMAIN SHOWS A DIRECTORY LISTING OR 404
+-------------------------------------------------
+Confirm that index.php is directly inside the domain's document root
+(public_html for a normal Hostinger setup) and that .htaccess was uploaded.
+
+10. IF IMAGES DO NOT SHOW
+-------------------------
+Confirm these files exist:
+assets/images/logo.png
+assets/images/bottle.png
+assets/images/placeholder.jpg
+
+The PHP code now uses https://aqualeaf.space/assets/... paths.
